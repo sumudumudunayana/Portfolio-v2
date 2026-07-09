@@ -1,6 +1,11 @@
-const canvas = document.getElementById('hero-canvas');
+const canvas = document.getElementById("hero-canvas");
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000,
+);
 const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -12,24 +17,27 @@ const positions = new Float32Array(particleCount * 3);
 const colors = new Float32Array(particleCount * 3);
 
 for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 2000;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
-    const color = Math.random();
-    colors[i * 3] = color < 0.33 ? 0.5 : color < 0.66 ? 0.2 : 1;
-    colors[i * 3 + 1] = color < 0.33 ? 0.2 : color < 0.66 ? 0.5 : 0.8;
-    colors[i * 3 + 2] = color < 0.33 ? 1 : color < 0.66 ? 0.8 : 0.5;
+  positions[i * 3] = (Math.random() - 0.5) * 2000;
+  positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
+  positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
+  const color = Math.random();
+  colors[i * 3] = color < 0.33 ? 0.5 : color < 0.66 ? 0.2 : 1;
+  colors[i * 3 + 1] = color < 0.33 ? 0.2 : color < 0.66 ? 0.5 : 0.8;
+  colors[i * 3 + 2] = color < 0.33 ? 1 : color < 0.66 ? 0.8 : 0.5;
 }
 
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+particlesGeometry.setAttribute(
+  "position",
+  new THREE.BufferAttribute(positions, 3),
+);
+particlesGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
 const particlesMaterial = new THREE.PointsMaterial({
-    size: 2,
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.8,
-    blending: THREE.AdditiveBlending,
+  size: 2,
+  vertexColors: true,
+  transparent: true,
+  opacity: 0.8,
+  blending: THREE.AdditiveBlending,
 });
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -45,190 +53,151 @@ scene.add(pointLight);
 let mouseX = 0;
 let mouseY = 0;
 
-document.addEventListener('mousemove', (event) => {
-    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+document.addEventListener("mousemove", (event) => {
+  mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+  mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 });
 
 function animateNebula() {
-    requestAnimationFrame(animateNebula);
-    const time = Date.now() * 0.0005;
-    for (let i = 0; i < particleCount; i++) {
-        const i3 = i * 3;
-        positions[i3 + 1] += Math.sin(time + positions[i3] * 0.01) * 0.5;
-    }
-    particlesGeometry.attributes.position.needsUpdate = true;
+  requestAnimationFrame(animateNebula);
+  const time = Date.now() * 0.0005;
+  for (let i = 0; i < particleCount; i++) {
+    const i3 = i * 3;
+    positions[i3 + 1] += Math.sin(time + positions[i3] * 0.01) * 0.5;
+  }
+  particlesGeometry.attributes.position.needsUpdate = true;
 
-    camera.position.x += (mouseX * 200 - camera.position.x) * 0.05;
-    camera.position.y += (mouseY * 100 - camera.position.y) * 0.05;
-    camera.lookAt(scene.position);
+  camera.position.x += (mouseX * 200 - camera.position.x) * 0.05;
+  camera.position.y += (mouseY * 100 - camera.position.y) * 0.05;
+  camera.lookAt(scene.position);
 
-    renderer.render(scene, camera);
+  renderer.render(scene, camera);
 }
 
 animateNebula();
 
-const aboutCanvas = document.getElementById('about-canvas');
-const aboutScene = new THREE.Scene();
-const aboutCamera = new THREE.PerspectiveCamera(75, aboutCanvas.clientWidth / aboutCanvas.clientHeight, 0.1, 1000);
-const aboutRenderer = new THREE.WebGLRenderer({ canvas: aboutCanvas, alpha: true });
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
 
-aboutRenderer.setSize(aboutCanvas.clientWidth, aboutCanvas.clientHeight);
-aboutCamera.position.z = 5;
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate-fade-in");
 
-const aboutGeometry = new THREE.PlaneGeometry(4, 4);
-const aboutMaterial = new THREE.MeshPhongMaterial({ color: 0x3b82f6, transparent: true, opacity: 0.5 });
-const aboutPlane = new THREE.Mesh(aboutGeometry, aboutMaterial);
-aboutScene.add(aboutPlane);
+        if (entry.target.id === "about") {
+          const aboutContent = entry.target.querySelector(".about-content");
 
-const aboutAmbientLight = new THREE.AmbientLight(0x404040);
-aboutScene.add(aboutAmbientLight);
+          if (aboutContent) {
+            aboutContent.classList.add("animate-zoom-in");
+          }
+        }
 
-const aboutDirectionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-aboutDirectionalLight.position.set(0, 1, 1);
-aboutScene.add(aboutDirectionalLight);
+        if (entry.target.id === "skills" || entry.target.id === "projects") {
+          const cards = entry.target.querySelectorAll(".card-item");
+          cards.forEach((card, index) => {
+            card.style.animation = `cardRotateIn 0.8s ease-out ${index * 0.2}s forwards`;
+          });
+        }
 
-aboutPlane.visible = false;
+        if (entry.target.id === "contact") {
+          const contactItems = entry.target.querySelectorAll(".contact-item");
+          contactItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.style.animation = "contactFadeIn 0.5s ease-out forwards";
+            }, index * 200);
+          });
+        }
+      }
+    });
+  },
+  { threshold: 0.1 },
+);
 
-function animateAbout() {
-    requestAnimationFrame(animateAbout);
-    if (aboutPlane.visible) {
-        aboutPlane.rotation.y += 0.02;
-        aboutCamera.position.z = Math.max(2, aboutCamera.position.z - 0.05);
-        aboutCamera.lookAt(aboutPlane.position);
+sections.forEach((section) => {
+  observer.observe(section);
+});
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute("href").substring(1);
+    const targetSection = document.getElementById(targetId);
+
+    targetSection.scrollIntoView({ behavior: "smooth" });
+    targetSection.classList.add("animate-fade-in");
+
+    if (targetId === "about") {
+      aboutPlane.visible = true;
+      aboutPlane.position.set(0, 0, 0);
+      aboutPlane.rotation.y = 0;
+      aboutCamera.position.z = 5;
+      const aboutContent = targetSection.querySelector(".about-content");
+      if (aboutContent) {
+        aboutContent.classList.add("animate-zoom-in");
+      }
     }
-    aboutRenderer.render(aboutScene, aboutCamera);
-}
 
-animateAbout();
+    if (targetId === "skills" || targetId === "projects") {
+      const cards = targetSection.querySelectorAll(".card-item");
+      cards.forEach((card, index) => {
+        card.style.animation = `cardRotateIn 0.8s ease-out ${index * 0.2}s forwards`;
+      });
+    }
 
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('nav a');
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-
-            if (entry.target.id === 'about') {
-                if (!aboutPlane.visible) {
-                    aboutPlane.visible = true;
-                    aboutPlane.position.set(0, 0, 0);
-                    aboutPlane.rotation.y = 0;
-                    aboutCamera.position.z = 5;
-                }
-                const aboutContent = entry.target.querySelector('.about-content');
-                if (aboutContent) {
-                    aboutContent.classList.add('animate-zoom-in');
-                }
-            }
-
-            if (entry.target.id === 'skills' || entry.target.id === 'projects') {
-                const cards = entry.target.querySelectorAll('.card-item');
-                cards.forEach((card, index) => {
-                    card.style.animation = `cardRotateIn 0.8s ease-out ${index * 0.2}s forwards`;
-                });
-            }
-
-            if (entry.target.id === 'contact') {
-                const contactItems = entry.target.querySelectorAll('.contact-item');
-                contactItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.style.animation = 'contactFadeIn 0.5s ease-out forwards';
-                    }, index * 200);
-                });
-            }
-        }
-    });
-}, { threshold: 0.1 });
-
-sections.forEach(section => {
-    observer.observe(section);
+    if (targetId === "contact") {
+      const contactItems = targetSection.querySelectorAll(".contact-item");
+      contactItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.animation = "contactFadeIn 0.5s ease-out forwards";
+        }, index * 200);
+      });
+    }
+  });
 });
 
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
 
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-        targetSection.classList.add('animate-fade-in');
-
-        if (targetId === 'about') {
-            aboutPlane.visible = true;
-            aboutPlane.position.set(0, 0, 0);
-            aboutPlane.rotation.y = 0;
-            aboutCamera.position.z = 5;
-            const aboutContent = targetSection.querySelector('.about-content');
-            if (aboutContent) {
-                aboutContent.classList.add('animate-zoom-in');
-            }
-        }
-
-        if (targetId === 'skills' || targetId === 'projects') {
-            const cards = targetSection.querySelectorAll('.card-item');
-            cards.forEach((card, index) => {
-                card.style.animation = `cardRotateIn 0.8s ease-out ${index * 0.2}s forwards`;
-            });
-        }
-
-        if (targetId === 'contact') {
-            const contactItems = targetSection.querySelectorAll('.contact-item');
-            contactItems.forEach((item, index) => {
-                setTimeout(() => {
-                    item.style.animation = 'contactFadeIn 0.5s ease-out forwards';
-                }, index * 200);
-            });
-        }
-    });
+  aboutCamera.aspect = aboutCanvas.clientWidth / aboutCanvas.clientHeight;
+  aboutCamera.updateProjectionMatrix();
+  aboutRenderer.setSize(aboutCanvas.clientWidth, aboutCanvas.clientHeight);
 });
 
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    aboutCamera.aspect = aboutCanvas.clientWidth / aboutCanvas.clientHeight;
-    aboutCamera.updateProjectionMatrix();
-    aboutRenderer.setSize(aboutCanvas.clientWidth, aboutCanvas.clientHeight);
-});
-
-
-
-   
 //3D TILT EFFECT
 function apply3DTilt(selector) {
-    document.querySelectorAll(selector).forEach(card => {
-        const inner = card.querySelector(".tilt-inner");
-        if (!inner) return;
+  document.querySelectorAll(selector).forEach((card) => {
+    const inner = card.querySelector(".tilt-inner");
+    if (!inner) return;
 
-        card.addEventListener("mousemove", (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
 
-            const rotateX = -(y - centerY) / 12;
-            const rotateY = (x - centerX) / 12;
+      const rotateX = -(y - centerY) / 12;
+      const rotateY = (x - centerX) / 12;
 
-            inner.style.transform = `
+      inner.style.transform = `
                 rotateX(${rotateX}deg)
                 rotateY(${rotateY}deg)
                 translateZ(20px)
             `;
-        });
+    });
 
-        card.addEventListener("mouseleave", () => {
-            inner.style.transform = `
+    card.addEventListener("mouseleave", () => {
+      inner.style.transform = `
                 rotateX(0deg)
                 rotateY(0deg)
                 translateZ(0)
             `;
-        });
     });
+  });
 }
 
 apply3DTilt(".skill-card");
@@ -236,28 +205,27 @@ apply3DTilt(".project-card");
 
 //GSAP STAGGER REVEAL
 const revealCards = (sectionId) => {
-    const cards = document.querySelectorAll(`${sectionId} .card-item`);
+  const cards = document.querySelectorAll(`${sectionId} .card-item`);
 
-    gsap.fromTo(
-        cards,
-        {
-            opacity: 0,
-            y: 40,
-            rotateX: -15,
-            filter: "blur(10px)"
-        },
-        {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            filter: "blur(0px)",
-            duration: 0.9,
-            stagger: 0.15,
-            ease: "power3.out"
-        }
-    );
+  gsap.fromTo(
+    cards,
+    {
+      opacity: 0,
+      y: 40,
+      rotateX: -15,
+      filter: "blur(10px)",
+    },
+    {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      filter: "blur(0px)",
+      duration: 0.9,
+      stagger: 0.15,
+      ease: "power3.out",
+    },
+  );
 };
-
 
 //==============================
 // MOBILE NAVIGATION
@@ -267,52 +235,35 @@ const menuBtn = document.getElementById("menu-btn");
 const mobileMenu = document.getElementById("mobile-menu");
 
 menuBtn.addEventListener("click", () => {
-
-    mobileMenu.classList.toggle("hidden");
-
+  mobileMenu.classList.toggle("hidden");
 });
 
-document.querySelectorAll("#mobile-menu a").forEach(link=>{
-
-    link.addEventListener("click",()=>{
-
-        mobileMenu.classList.add("hidden");
-
-    });
-
+document.querySelectorAll("#mobile-menu a").forEach((link) => {
+  link.addEventListener("click", () => {
+    mobileMenu.classList.add("hidden");
+  });
 });
-
-
-
 
 //==============================
 // SMOOTH SCROLL FOR ALL LINKS
 //==============================
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
 
-    anchor.addEventListener("click", function (e) {
+    const target = document.querySelector(this.getAttribute("href"));
 
-        e.preventDefault();
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
 
-        const target = document.querySelector(this.getAttribute("href"));
-
-        if (target) {
-
-            target.scrollIntoView({
-
-                behavior: "smooth"
-
-            });
-
-        }
-
-        // Close mobile menu if open
-        const mobileMenu = document.getElementById("mobile-menu");
-        if (mobileMenu) {
-            mobileMenu.classList.add("hidden");
-        }
-
-    });
-
+    // Close mobile menu if open
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (mobileMenu) {
+      mobileMenu.classList.add("hidden");
+    }
+  });
 });
