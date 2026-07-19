@@ -1,67 +1,82 @@
-window.onload = function () {
-    emailjs.init("VXDYkXXG4qMZYPC4U"); 
-};
+emailjs.init("VXDYkXXG4qMZYPC4U");
 
 function sendMail() {
-    const name = document.getElementById("nameInput").value;
-    const email = document.getElementById("emailInput").value;
-    const subject = document.getElementById("subjectInput").value;
-    const message = document.getElementById("massageInput").value;
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Subject:", subject);
-    console.log("Message:", message);
+
+    const name = document.getElementById("nameInput").value.trim();
+    const email = document.getElementById("emailInput").value.trim();
+    const subject = document.getElementById("subjectInput").value.trim();
+    const message = document.getElementById("massageInput").value.trim();
 
     if (!name || !email || !subject || !message) {
+
         Swal.fire({
             icon: "warning",
-            title: "Oops!",
-            text: "Please fill all the fields before sending.",
-            confirmButtonColor: "#ff5733",
+            title: "Missing Information",
+            text: "Please fill in all the fields."
         });
-        return;
-    }
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        Swal.fire({
-            icon: "error",
-            title: "Invalid Email!",
-            text: "Please enter a valid email address.",
-            confirmButtonColor: "#ff5733",
-        });
+
         return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+
+        Swal.fire({
+            icon: "error",
+            title: "Invalid Email",
+            text: "Please enter a valid email address."
+        });
+
+        return;
+    }
+
+    const button = document.querySelector(".contact-form button");
+
+    button.disabled = true;
+    button.innerHTML = "Sending...";
+
     const params = {
+
         from_name: name,
         from_email: email,
         subject: subject,
         message: message,
         reply_to: email
+
     };
 
-    emailjs.send("service_72ic4yf", "template_xvxuq3o", params)
-    .then(() => {
+    emailjs.send("service_p3cb94i", "template_xvxuq3o", params)
+
+    .then(function () {
+
         Swal.fire({
             icon: "success",
-            title: "Sent!",
-            text: "Your message has been sent successfully.",
-            confirmButtonColor: "#28a745",
+            title: "Success!",
+            text: "Your message has been sent."
         });
-        document.getElementById("nameInput").value = "";
-        document.getElementById("emailInput").value = "";
-        document.getElementById("subjectInput").value = "";
-        document.getElementById("massageInput").value = "";
-        
+
+        document.getElementById("contactForm").reset();
+
     })
-    .catch((error) => {
+
+    .catch(function (error) {
+
+        console.error(error);
+
         Swal.fire({
             icon: "error",
-            title: "Oops!",
-            text: "Something went wrong. Please try again later.",
-            confirmButtonColor: "#ff5733",
+            title: "Failed",
+            text: "Unable to send your message."
         });
-        console.error("Email send error:", error);
+
+    })
+
+    .finally(function () {
+
+        button.disabled = false;
+        button.innerHTML = "Send Message";
+
     });
+
 }
