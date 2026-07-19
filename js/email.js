@@ -1,4 +1,4 @@
-emailjs.init("VXDYkXXG4qMZYPC4U");
+emailjs.init("c25whRwKbdE5pN6KJ");
 
 function sendMail() {
 
@@ -46,7 +46,7 @@ function sendMail() {
 
     };
 
-    emailjs.send("service_p3cb94i", "template_xvxuq3o", params)
+    emailjs.send("service_8a5anin", "template_gghma2b", params)
 
     .then(function () {
 
