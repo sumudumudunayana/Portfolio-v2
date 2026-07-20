@@ -43,15 +43,12 @@ function sendMail() {
     emailjs.send("service_8a5anin", "template_gghma2b", params)
 
     .then(function () {
-
         Swal.fire({
             icon: "success",
             title: "Success!",
             text: "Your message has been sent."
         });
-
         document.getElementById("contactForm").reset();
-
     })
 
     .catch(function (error) {
