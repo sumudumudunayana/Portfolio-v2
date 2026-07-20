@@ -8,13 +8,11 @@ function sendMail() {
     const message = document.getElementById("massageInput").value.trim();
 
     if (!name || !email || !subject || !message) {
-
         Swal.fire({
             icon: "warning",
             title: "Missing Information",
             text: "Please fill in all the fields."
         });
-
         return;
     }
 
