@@ -52,15 +52,12 @@ function sendMail() {
     })
 
     .catch(function (error) {
-
         console.error(error);
-
         Swal.fire({
             icon: "error",
             title: "Failed",
             text: "Unable to send your message."
         });
-
     })
 
     .finally(function () {
