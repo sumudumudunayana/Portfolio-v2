@@ -17,7 +17,6 @@ function sendMail() {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!emailRegex.test(email)) {
         Swal.fire({
             icon: "error",
@@ -61,7 +60,6 @@ function sendMail() {
     })
 
     .finally(function () {
-
         button.disabled = false;
         button.innerHTML = "Send Message";
 
