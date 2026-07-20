@@ -19,13 +19,11 @@ function sendMail() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-
         Swal.fire({
             icon: "error",
             title: "Invalid Email",
             text: "Please enter a valid email address."
         });
-
         return;
     }
 
