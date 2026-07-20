@@ -87,7 +87,6 @@ const observer = new IntersectionObserver(
 
         if (entry.target.id === "about") {
           const aboutContent = entry.target.querySelector(".about-content");
-
           if (aboutContent) {
             aboutContent.classList.add("animate-zoom-in");
           }
@@ -160,7 +159,6 @@ window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-
   aboutCamera.aspect = aboutCanvas.clientWidth / aboutCanvas.clientHeight;
   aboutCamera.updateProjectionMatrix();
   aboutRenderer.setSize(aboutCanvas.clientWidth, aboutCanvas.clientHeight);
