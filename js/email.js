@@ -33,13 +33,11 @@ function sendMail() {
     button.innerHTML = "Sending...";
 
     const params = {
-
         from_name: name,
         from_email: email,
         subject: subject,
         message: message,
         reply_to: email
-
     };
 
     emailjs.send("service_8a5anin", "template_gghma2b", params)
