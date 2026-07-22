@@ -42,10 +42,8 @@ const particlesMaterial = new THREE.PointsMaterial({
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particles);
-
 const ambientLight = new THREE.AmbientLight(0x202020);
 scene.add(ambientLight);
-
 const pointLight = new THREE.PointLight(0xffffff, 1, 1000);
 pointLight.position.set(0, 0, 0);
 scene.add(pointLight);
