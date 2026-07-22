@@ -38,7 +38,6 @@ function sendMail() {
     };
 
     emailjs.send("service_8a5anin", "template_gghma2b", params)
-
     .then(function () {
         Swal.fire({
             icon: "success",
@@ -56,7 +55,6 @@ function sendMail() {
             text: "Unable to send your message."
         });
     })
-
     .finally(function () {
         button.disabled = false;
         button.innerHTML = "Send Message";
