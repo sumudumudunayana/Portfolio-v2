@@ -118,7 +118,6 @@ body {
 .hero-subtitle {
   animation: fadeIn 0.8s ease;
 }
-
 .hero-image {
   animation: floating 4s ease-in-out infinite;
 }
@@ -127,11 +126,9 @@ body {
   0% {
     transform: translateY(0px);
   }
-
   50% {
     transform: translateY(-15px);
   }
-
   100% {
     transform: translateY(0px);
   }
