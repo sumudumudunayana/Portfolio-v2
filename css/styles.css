@@ -101,7 +101,6 @@ body {
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
 }
-
 .animate-zoom-in {
   animation: zoomIn 1s ease-out forwards;
 }
@@ -113,11 +112,9 @@ body {
 #home {
   padding-top: 100px;
 }
-
 .hero-name {
   animation: fadeIn 1.2s ease;
 }
-
 .hero-subtitle {
   animation: fadeIn 0.8s ease;
 }
