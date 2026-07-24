@@ -185,7 +185,6 @@ function apply3DTilt(selector) {
                 translateZ(20px)
             `;
     });
-
     card.addEventListener("mouseleave", () => {
       inner.style.transform = `
                 rotateX(0deg)
@@ -195,7 +194,6 @@ function apply3DTilt(selector) {
     });
   });
 }
-
 apply3DTilt(".skill-card");
 apply3DTilt(".project-card");
 
