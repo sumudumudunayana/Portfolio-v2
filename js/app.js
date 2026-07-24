@@ -225,7 +225,6 @@ const revealCards = (sectionId) => {
 //==============================
 // MOBILE NAVIGATION
 //==============================
-
 const menuBtn = document.getElementById("menu-btn");
 const mobileMenu = document.getElementById("mobile-menu");
 
@@ -241,7 +240,6 @@ document.querySelectorAll("#mobile-menu a").forEach((link) => {
 //==============================
 // SMOOTH SCROLL FOR ALL LINKS
 //==============================
-
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
