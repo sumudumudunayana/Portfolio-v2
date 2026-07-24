@@ -202,7 +202,6 @@ apply3DTilt(".project-card");
 //GSAP STAGGER REVEAL
 const revealCards = (sectionId) => {
   const cards = document.querySelectorAll(`${sectionId} .card-item`);
-
   gsap.fromTo(
     cards,
     {
@@ -233,7 +232,6 @@ const mobileMenu = document.getElementById("mobile-menu");
 menuBtn.addEventListener("click", () => {
   mobileMenu.classList.toggle("hidden");
 });
-
 document.querySelectorAll("#mobile-menu a").forEach((link) => {
   link.addEventListener("click", () => {
     mobileMenu.classList.add("hidden");
