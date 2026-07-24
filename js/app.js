@@ -249,7 +249,6 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         behavior: "smooth",
       });
     }
-
     // Close mobile menu if open
     const mobileMenu = document.getElementById("mobile-menu");
     if (mobileMenu) {
