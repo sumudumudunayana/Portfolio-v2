@@ -10,7 +10,6 @@ const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.z = 500;
-
 const particleCount = 10000;
 const particlesGeometry = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
