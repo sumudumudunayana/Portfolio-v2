@@ -63,11 +63,9 @@ function animateNebula() {
     positions[i3 + 1] += Math.sin(time + positions[i3] * 0.01) * 0.5;
   }
   particlesGeometry.attributes.position.needsUpdate = true;
-
   camera.position.x += (mouseX * 200 - camera.position.x) * 0.05;
   camera.position.y += (mouseY * 100 - camera.position.y) * 0.05;
   camera.lookAt(scene.position);
-
   renderer.render(scene, camera);
 }
 
