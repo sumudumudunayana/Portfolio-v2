@@ -86,14 +86,12 @@ const observer = new IntersectionObserver(
             aboutContent.classList.add("animate-zoom-in");
           }
         }
-
         if (entry.target.id === "skills" || entry.target.id === "projects") {
           const cards = entry.target.querySelectorAll(".card-item");
           cards.forEach((card, index) => {
             card.style.animation = `cardRotateIn 0.8s ease-out ${index * 0.2}s forwards`;
           });
         }
-
         if (entry.target.id === "contact") {
           const contactItems = entry.target.querySelectorAll(".contact-item");
           contactItems.forEach((item, index) => {
