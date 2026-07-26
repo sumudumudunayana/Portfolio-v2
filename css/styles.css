@@ -247,15 +247,12 @@ section {
   border-radius: 18px;
   text-align: center;
   transition: 0.35s;
-
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .about-card:hover {
   transform: translateY(-10px);
-
   border-color: #22d3ee;
-
   box-shadow: 0 15px 35px rgba(34, 211, 238, 0.2);
 }
 
