@@ -262,15 +262,10 @@ SKILLS
 
 .skill-box {
   background: #1f2937;
-
   border-radius: 20px;
-
   padding: 35px;
-
   text-align: center;
-
   transition: 0.35s;
-
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
