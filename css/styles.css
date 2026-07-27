@@ -303,13 +303,9 @@ EXPERIENCE
 
 .experience-card {
   background: #1f2937;
-
   border-radius: 22px;
-
   padding: 45px;
-
   border: 1px solid rgba(255, 255, 255, 0.05);
-
   transition: 0.35s;
 }
 
