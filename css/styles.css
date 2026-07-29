@@ -327,13 +327,11 @@ EXPERIENCE
 
 .experience-item:hover {
   transform: translateX(8px);
-
   background: #111c2f;
 }
 
 .experience-item i {
   margin-top: 4px;
-
   font-size: 18px;
 }
 
