@@ -311,15 +311,12 @@ EXPERIENCE
 
 .experience-card:hover {
   transform: translateY(-8px);
-
   border-color: #22d3ee;
-
   box-shadow: 0 20px 45px rgba(34, 211, 238, 0.18);
 }
 
 .experience-item {
   display: flex;
-
   gap: 15px;
 
   align-items: flex-start;
