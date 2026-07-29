@@ -337,7 +337,6 @@ EXPERIENCE
 
 .experience-item span {
   color: #d1d5db;
-
   line-height: 1.7;
 }
 
@@ -347,9 +346,7 @@ PROJECTS
 
 .project-feature {
   background: #1f2937;
-
   border-radius: 22px;
-
   overflow: hidden;
 
   transition: 0.35s;
